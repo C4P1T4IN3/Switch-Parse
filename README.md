@@ -53,12 +53,12 @@ Avant de commencer, vous aurez besoin de :
        FOREIGN KEY (device_id) REFERENCES devices(id)
    );
 
-Fichiers PHP
+## Fichiers PHP
 
-Placez receive.php dans le dossier /api de votre hébergement.
+- Placez `receive.php` dans le dossier `/api` de votre hébergement.
+- Configurez `config.php` à la racine pour la connexion MySQL :
 
-Configurez config.php à la racine pour la connexion MySQL :
-
+```php
 <?php
 $host = "localhost";
 $db   = "network_monitoring";
@@ -72,7 +72,6 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
-
 Tokens de sécurité
 
 Mettez à jour les tokens dans vos fichiers PHP et Python.
@@ -80,7 +79,6 @@ Mettez à jour les tokens dans vos fichiers PHP et Python.
 Pour générer un token sécurisé :
 
 openssl rand -hex 32
-
 Script Python
 
 Installez les dépendances nécessaires :
@@ -105,26 +103,21 @@ Accédez à index.php pour visualiser vos appareils et interfaces.
 
 Structure des fichiers
 / (racine)
-├─ config.php           # Configuration base de données
-├─ index.php            # Affichage des données
+├─ config.php       # Configuration base de données
+├─ index.php        # Affichage des données
 └─ /api
-   └─ receive.php       # Endpoint pour recevoir les données
+   └─ receive.php   # Endpoint pour recevoir les données
 Fabriqué avec
 
-PHP
- - Langage côté serveur
+PHP - Langage côté serveur
 
-Python
- - Langage pour la collecte des données
+Python - Langage pour la collecte des données
 
-MySQL
- - Base de données
+MySQL - Base de données
 
-TailwindCSS
- - Pour styliser l’interface (optionnel)
+TailwindCSS - Pour styliser l’interface (optionnel)
 
-Visual Studio Code
- - Éditeur recommandé
+Visual Studio Code - Éditeur recommandé
 
 Contributing
 
