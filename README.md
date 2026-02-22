@@ -1,78 +1,63 @@
-Network Monitoring Script
+# Network Monitoring Script
 
-Un script simple pour surveiller vos appareils réseau et leurs interfaces via Python et PHP, avec stockage des données dans une base MySQL.
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
 
-Fonctionnalités
+Un script simple et efficace pour surveiller vos appareils réseau et leurs interfaces, avec collecte via Python, stockage en MySQL et affichage via PHP.
 
-Collecte automatique des informations des appareils réseau :
+---
 
-Nom d’hôte (hostname)
+## Pour commencer
 
-Adresse IP
+Ce projet vous permet de récupérer automatiquement les informations de vos appareils réseau et de leurs interfaces. Vous pouvez ensuite visualiser toutes les données depuis un navigateur.  
 
-Version de l’OS
+---
 
-Temps de fonctionnement (uptime)
+### Pré-requis
 
-Collecte des informations des interfaces réseau :
+Avant de commencer, vous aurez besoin de :  
 
-Nom de l’interface
+- PHP ≥ 7.4  
+- Python ≥ 3.8  
+- Serveur web (Apache, Nginx…)  
+- Base de données MySQL ≥ 5.7  
+- Accès SSH sur vos appareils réseau (pour la collecte via Python)  
 
-Statut et protocole
+---
 
-Adresse IP
+### Installation
 
-Stockage des données dans MySQL
+1. **Base de données**
 
-Interface simple pour visualiser les données depuis un index HTML/PHP
+   Créez la base et les tables nécessaires :
 
-Prérequis
+   ```sql
+   CREATE DATABASE network_monitoring;
+   USE network_monitoring;
 
-PHP ≥ 7.4
+   CREATE TABLE devices (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       hostname VARCHAR(100),
+       ip_address VARCHAR(50),
+       os_version VARCHAR(255),
+       uptime VARCHAR(100),
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
 
-Python ≥ 3.8
-
-Serveur web (Apache, Nginx…)
-
-Base de données MySQL
-
-Accès SSH sur vos équipements réseau (pour la collecte via Python, si besoin)
-
-Installation
-
-Base de données
-
-Créez une base de données et les tables nécessaires :
-
-CREATE DATABASE network_monitoring;
-USE network_monitoring;
-
-CREATE TABLE devices (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    hostname VARCHAR(100),
-    ip_address VARCHAR(50),
-    os_version VARCHAR(255),
-    uptime VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE interfaces (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    device_id INT,
-    interface_name VARCHAR(50),
-    status VARCHAR(50),
-    protocol VARCHAR(50),
-    ip_address VARCHAR(50),
-    FOREIGN KEY (device_id) REFERENCES devices(id)
-);
+   CREATE TABLE interfaces (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       device_id INT,
+       interface_name VARCHAR(50),
+       status VARCHAR(50),
+       protocol VARCHAR(50),
+       ip_address VARCHAR(50),
+       FOREIGN KEY (device_id) REFERENCES devices(id)
+   );
 
 Fichiers PHP
 
-Placez receive.php dans le dossier /api de votre hébergement web.
+Placez receive.php dans le dossier /api de votre hébergement.
 
-Configurez config.php à la racine pour connecter votre script à la base MySQL.
-
-Exemple minimal config.php :
+Configurez config.php à la racine pour la connexion MySQL :
 
 <?php
 $host = "localhost";
@@ -98,30 +83,66 @@ openssl rand -hex 32
 
 Script Python
 
-Installez les dépendances Python si nécessaire :
+Installez les dépendances nécessaires :
 
 pip install -r requirements.txt
 
-Configurez les informations de connexion aux appareils réseau et la cible /api/receive.php pour envoyer les données.
+Configurez vos appareils réseau et le chemin vers /api/receive.php pour l’envoi des données.
 
-Accéder à l’interface
+Visualisation
 
-Après avoir tout configuré et lancé les scripts Python, ouvrez votre index.php dans un navigateur.
+Ouvrez index.php dans un navigateur pour voir toutes les informations en temps réel.
 
-Vous devriez voir toutes les informations collectées en temps réel.
+Démarrage
 
-Structure des fichiers
-/ (racine)
-├─ config.php           # Configuration base de données
-├─ index.php            # Affichage des données
-└─ /api
-   └─ receive.php       # Endpoint pour recevoir les données
-Sécurité
+Pour lancer le projet :
 
-Ne partagez jamais vos tokens ni identifiants de base de données.
+Assurez-vous que votre serveur web et MySQL fonctionnent.
 
-Si vous exposez receive.php sur internet, assurez-vous que l’accès est limité à vos scripts ou IPs autorisées.
+Exécutez le script Python pour envoyer les données à votre endpoint PHP.
 
-Licence
+Accédez à index.php pour visualiser vos appareils et interfaces.
 
-Ce projet est sous licence MIT.
+Fabriqué avec
+
+PHP
+ - Langage côté serveur
+
+Python
+ - Langage pour la collecte des données
+
+MySQL
+ - Base de données
+
+TailwindCSS
+ - Pour styliser l’interface (optionnel)
+
+Visual Studio Code
+ - Éditeur recommandé
+
+Contributing
+
+Si vous souhaitez contribuer :
+
+Fork le projet
+
+Créez une branche pour vos modifications
+
+Envoyez un pull request
+
+Versions
+
+Dernière version stable : 1.0
+Liste des versions : Cliquer pour afficher
+
+Auteurs
+
+Steven Prit alias @stevenprit
+
+Consultez la liste des contributeurs
+ pour voir qui a aidé au projet !
+
+License
+
+Ce projet est sous licence MIT - voir le fichier LICENSE.md
+ pour plus d’informations.
