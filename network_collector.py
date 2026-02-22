@@ -3,8 +3,8 @@ import requests
 import re
 import json
 
-API_URL = "https://dev.elaaria.space/api/receive.php"
-TOKEN = "ce2b439378006a5556fe09cafcb53b85d1318f3d12903cefa0beb353095024a0"
+API_URL = "https://votresite.fr/api/receive.php"
+TOKEN = "votretoken"
 
 # Liste des équipements (IP + credentials)
 with open("devices.json") as f:
