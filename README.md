@@ -1,31 +1,34 @@
-# 🌐 Network Monitoring Script
+# Network Monitoring Script
 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) 
-[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com) 
-[![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
+[![Built with Love](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) 
+[![Powered by Electricity](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com) 
+[![Uses HTML](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
 
-Un script simple et efficace pour surveiller vos appareils réseau et leurs interfaces, avec collecte via **Python**, stockage en **MySQL** et affichage via **PHP**.
+Ce projet permet de surveiller vos appareils réseau et leurs interfaces avec Python, stocker les données dans MySQL et les afficher via PHP.
 
 ---
 
 <details>
-<summary>🚀 Pour commencer</summary>
-Ce projet permet de récupérer automatiquement les informations de vos appareils réseau et de leurs interfaces. Vous pouvez ensuite visualiser toutes les données depuis un navigateur.
+<summary>Introduction</summary>
+
+Ce script récupère automatiquement les informations de vos appareils réseau et de leurs interfaces. Vous pouvez ensuite visualiser toutes les données depuis un navigateur.
 </details>
 
 <details>
-<summary>⚙️ Pré-requis</summary>
-- **PHP ≥ 7.4**  
-- **Python ≥ 3.8**  
-- Serveur web (**Apache**, **Nginx**)  
-- Base de données **MySQL ≥ 5.7**  
-- Accès **SSH** sur vos appareils réseau
+<summary>Pré-requis</summary>
+
+- PHP ≥ 7.4  
+- Python ≥ 3.8  
+- Serveur web (Apache, Nginx)  
+- Base de données MySQL ≥ 5.7  
+- Accès SSH sur vos appareils réseau
 </details>
 
 <details>
-<summary>🛠️ Installation</summary>
+<summary>Installation</summary>
 
-### 1️⃣ Base de données
+### Base de données
+
 ```sql
 CREATE DATABASE network_monitoring;
 USE network_monitoring;
@@ -50,8 +53,9 @@ CREATE TABLE interfaces (
 );
 ```
 
-### 2️⃣ Fichiers PHP
-- Placez `receive.php` dans le dossier `/api`.  
+### Fichiers PHP
+
+- Placez `receive.php` dans le dossier `/api`  
 - Configurez `config.php` :
 
 ```php
@@ -70,69 +74,81 @@ try {
 ?>
 ```
 
-### 3️⃣ Tokens de sécurité
+### Tokens de sécurité
+
 ```bash
 openssl rand -hex 32
 ```
 
-### 4️⃣ Script Python
+### Script Python
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5️⃣ Visualisation
-Ouvrez `index.php` dans un navigateur pour voir toutes les informations.
+Configurez vos appareils réseau et le chemin vers `/api/receive.php` pour l’envoi des données.
+
+### Visualisation
+
+Ouvrez `index.php` dans votre navigateur pour visualiser les données.
 </details>
 
 <details>
-<summary>▶️ Démarrage</summary>
+<summary>Démarrage</summary>
+
 1. Assurez-vous que votre serveur web et MySQL fonctionnent.  
-2. Exécutez le script Python pour envoyer les données à votre endpoint PHP.  
-3. Accédez à `index.php` pour visualiser vos appareils et interfaces.
+2. Exécutez le script Python pour envoyer les données.  
+3. Accédez à `index.php` pour voir les informations en temps réel.
 </details>
 
 <details>
-<summary>📂 Structure des fichiers</summary>
+<summary>Structure des fichiers</summary>
+
 ```
 / (racine)
-├─ config.php       # Configuration base de données
-├─ index.php        # Affichage des données
-└─ /api
-   └─ receive.php   # Endpoint pour recevoir les données
+- config.php       # Configuration base de données
+- index.php        # Affichage des données
+- /api
+  - receive.php    # Endpoint pour recevoir les données
 ```
 </details>
 
 <details>
-<summary>💻 Fabriqué avec</summary>
+<summary>Fabriqué avec</summary>
+
 | Technologie       | Rôle |
 |------------------|--------------------------------|
 | PHP               | Langage côté serveur |
 | Python            | Collecte des données |
 | MySQL             | Base de données |
-| TailwindCSS       | Stylisation interface |
+| TailwindCSS       | Stylisation interface (optionnel) |
 | Visual Studio Code| Éditeur recommandé |
 </details>
 
 <details>
-<summary>🤝 Contributing</summary>
+<summary>Contributing</summary>
+
 1. Fork le projet  
 2. Créez une branche pour vos modifications  
 3. Envoyez un Pull Request
 </details>
 
 <details>
-<summary>🏷️ Versions</summary>
-- Dernière version stable : **1.0**  
+<summary>Versions</summary>
+
+- Dernière version stable : 1.0  
 - Liste des versions : voir le changelog
 </details>
 
 <details>
-<summary>👤 Auteurs</summary>
+<summary>Auteurs</summary>
+
 **Steven Prit** alias `@stevenprit`  
-Consultez la liste des contributeurs pour voir qui a aidé au projet !
+Consultez la liste des contributeurs pour voir qui a aidé au projet.
 </details>
 
 <details>
-<summary>📄 License</summary>
-Ce projet est sous **licence MIT** – voir le fichier `LICENSE.md`.
+<summary>License</summary>
+
+Ce projet est sous licence **MIT** – voir le fichier `LICENSE.md`.
 </details>
