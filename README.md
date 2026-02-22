@@ -71,7 +71,7 @@ try {
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
 }
-?>
+?> ```
 ## Tokens de sécurité
 
 - Mettez à jour les tokens dans vos fichiers PHP et Python.
