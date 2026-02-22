@@ -143,7 +143,7 @@ Ouvrez `index.php` dans votre navigateur pour visualiser les données.
 <details>
 <summary>Auteurs</summary>
 
-**Steven Prit** alias `@stevenprit`  
+**C4PIT4IN3** alias `@C4P1T4IN3`  
 Consultez la liste des contributeurs pour voir qui a aidé au projet.
 </details>
 
