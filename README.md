@@ -72,12 +72,12 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
-Tokens de sécurité
+## Tokens de sécurité
 
-Mettez à jour les tokens dans vos fichiers PHP et Python.
+- Mettez à jour les tokens dans vos fichiers PHP et Python.
+- Pour générer un token sécurisé :
 
-Pour générer un token sécurisé :
-
+```bash
 openssl rand -hex 32
 Script Python
 
