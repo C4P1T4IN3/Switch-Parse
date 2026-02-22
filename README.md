@@ -103,6 +103,12 @@ Exécutez le script Python pour envoyer les données à votre endpoint PHP.
 
 Accédez à index.php pour visualiser vos appareils et interfaces.
 
+Structure des fichiers
+/ (racine)
+├─ config.php           # Configuration base de données
+├─ index.php            # Affichage des données
+└─ /api
+   └─ receive.php       # Endpoint pour recevoir les données
 Fabriqué avec
 
 PHP
