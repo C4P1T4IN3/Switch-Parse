@@ -8,24 +8,24 @@ Ce projet permet de surveiller vos appareils réseau et leurs interfaces avec Py
 
 ---
 
-
-##Introduction
+<details>
+<summary>Introduction</summary>
 
 Ce script récupère automatiquement les informations de vos appareils réseau et de leurs interfaces. Vous pouvez ensuite visualiser toutes les données depuis un navigateur.
+</details>
 
-
-
-##Pré-requis
+<details>
+<summary>Pré-requis</summary>
 
 - PHP ≥ 7.4  
 - Python ≥ 3.8  
 - Serveur web (Apache, Nginx)  
 - Base de données MySQL ≥ 5.7  
 - Accès SSH sur vos appareils réseau
+</details>
 
-
-
-**Installation
+<details>
+<summary>Installation</summary>
 
 ### Base de données
 
@@ -91,7 +91,7 @@ Configurez vos appareils réseau et le chemin vers `/api/receive.php` pour l’e
 ### Visualisation
 
 Ouvrez `index.php` dans votre navigateur pour visualiser les données.
-
+</details>
 
 <details>
 <summary>Démarrage</summary>
