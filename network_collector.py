@@ -1,7 +1,16 @@
 from netmiko import ConnectHandler, NetmikoTimeoutException
+import paramiko
 import requests
 import re
 import json
+
+# 🔹 Forcer Paramiko à accepter les anciens algos SSH
+paramiko.Transport._preferred_kex = (
+    'diffie-hellman-group1-sha1',
+    'diffie-hellman-group14-sha1',
+)
+paramiko.Transport._preferred_ciphers = ('aes128-cbc', '3des-cbc', 'aes192-cbc', 'aes256-cbc')
+paramiko.Transport._preferred_keys = ('ssh-rsa',)
 
 API_URL = "https://dev.elaaria.space/api/receive.php"
 TOKEN = "ce2b439378006a5556fe09cafcb53b85d1318f3d12903cefa0beb353095024a0"
@@ -29,44 +38,65 @@ for DEVICE in DEVICES:
 
     payload = {}
     try:
+        # 🔹 Ajouter global_delay_factor pour vieux IOS
+        DEVICE["global_delay_factor"] = 2
+
         net = ConnectHandler(**DEVICE)
+        net.enable()  # mode enable pour commandes complètes
+
         # show version
         version_output = net.send_command("show version")
-        hostname = re.search(r"(\S+) uptime", version_output)
-        uptime = re.search(r"uptime is (.+)", version_output)
-        os_version = re.search(r"Version ([^,]+)", version_output)
+        print(f"\n--- show version ---\n{version_output}\n-------------------")
 
-        hostname = hostname.group(1) if hostname else host
-        uptime = uptime.group(1) if uptime else "N/A"
-        os_version = os_version.group(1) if os_version else "N/A"
+        hostname_match = re.search(r"(\S+) uptime", version_output)
+        uptime_match = re.search(r"uptime is (.+)", version_output)
+        os_version_match = re.search(r"Version ([^,]+)", version_output)
+
+        hostname = hostname_match.group(1) if hostname_match else host
+        uptime = uptime_match.group(1) if uptime_match else "N/A"
+        os_version = os_version_match.group(1) if os_version_match else "N/A"
 
         # show ip interface brief
         interfaces_output = net.send_command("show ip interface brief")
+        print(f"\n--- show ip interface brief ---\n{interfaces_output}\n-------------------")
+
+        vlan_ip = None
         interfaces = []
         for line in interfaces_output.splitlines():
-            if "Ethernet" in line or "Gigabit" in line:
-                parts = line.split()
-                if len(parts) >= 6:
-                    interfaces.append({
-                        "name": parts[0],
-                        "ip": parts[1],
-                        "status": parts[4],
-                        "protocol": parts[5]
-                    })
+            parts = line.split()
+            if len(parts) >= 6:
+                iface_name = parts[0]
+                ip = parts[1]
+                status = parts[4]
+                proto = parts[5]
+
+                # récupérer l'IP du VLAN actif
+                if iface_name.lower().startswith("vlan") and ip != "unassigned":
+                    vlan_ip = ip
+
+                interfaces.append({
+                    "name": iface_name,
+                    "ip": ip,
+                    "status": status,
+                    "protocol": proto
+                })
+            else:
+                print(f"⚠️ Ligne ignorée (colonnes insuffisantes): {line}")
 
         payload = {
             "token": TOKEN,
             "hostname": hostname,
-            "ip": host,
+            "ip": vlan_ip if vlan_ip else host,  # IP principale = IP du VLAN si disponible
             "version": os_version,
             "uptime": uptime,
             "interfaces": interfaces
         }
+
         net.disconnect()
         print(f"✅ {host} récupéré avec succès.")
 
     except (NetmikoTimeoutException, Exception) as e:
-        # Si l'équipement n'est pas joignable → mock
+        print(f"⚠️ Erreur Netmiko pour {host}: {e}")
         payload = mock_device(host)
         payload["token"] = TOKEN
         print(f"⚠️ {host} non joignable. Utilisation des données mockées.")
