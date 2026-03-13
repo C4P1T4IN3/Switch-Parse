@@ -1,5 +1,4 @@
 [
-  {"host": "192.168.1.1", "username": "admin", "password": "pass", "device_type": "cisco_ios"},
-  {"host": "192.168.1.2", "username": "admin", "password": "pass", "device_type": "cisco_ios"},
-  {"host": "10.0.0.1", "username": "admin", "password": "pass", "device_type": "cisco_ios"}
+  {"host": "192.168.56.1", "username": "admin", "password": "aporifpalecreusot", "device_type": "test1"},
+  {"host": "192.168.1.152", "username": "admin", "password": "aporifpalecreusot", "device_type": "test2"}
 ]
